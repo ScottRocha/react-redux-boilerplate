@@ -1,0 +1,4 @@
+# Converts all files to EOL LF's
+*.js text eol=lf 
+*.css text eol=lf 
+*.html text eol=lf 
