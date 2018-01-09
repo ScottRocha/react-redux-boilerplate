@@ -1,0 +1,2 @@
+webpackJsonp([4],{FyXt:function(e,t,u){"use strict";function l(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var a=u("GiK3"),n=l(a),o=u("aTtA"),r=l(o),d=function(){return n.default.createElement(r.default,{title:"Not Found - React + Redux Boilerplate"},n.default.createElement("h1",null,"Page Does Not Exist"))};t.default=d}});
+//# sourceMappingURL=notfound.d4bf3d9e0c5e06c19fa8.js.map
