@@ -25,28 +25,32 @@ class BasePage extends React.Component {
 
     if (isRehydrated) {
 
-      const childrenWithProps = React.Children.map(this.props.children, (child) => {
+      // Global props
+      let globalProps = {
+        "history": this.props.history,
+        dispatch,
+        isAuthenticated,
+        user,
+        expiry,
+        message,
+        token,
+        error,
+        "ReactGA": this.props.ReactGA,
+      };
 
-        const props = {
-          "path": child.props.path,
-          "history": this.props.history,
-          "match": matchPath(this.props.history.location.pathname, {
-            "path": child.props.path,
-            "exact": true,
-            "strict": false,
-          }),
-          dispatch,
-          isAuthenticated,
-          user,
-          expiry,
-          message,
-          token,
-          error,
-        };
+      const childrenWithProps = React.Children.map(this.props.children, (child) => {
 
         return React.cloneElement(child, {
           "render": () =>
-            <Bundle load={child.props.bundle}>{(Component) => <Component {...props} />}</Bundle>,
+            <Bundle ReactGA={this.props.ReactGA} load={child.props.bundle}>{(Component) => <Component {...{
+              "path": child.props.path,
+              "match": matchPath(this.props.history.location.pathname, {
+                "path": child.props.path,
+                "exact": true,
+                "strict": false,
+              }),
+              ...globalProps,
+            }} />}</Bundle>,
         });
 
       });

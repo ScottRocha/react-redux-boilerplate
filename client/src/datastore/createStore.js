@@ -11,7 +11,7 @@ import reducers from "./reducers";
 import { logoutUser, refreshToken } from "./actions/authentication";
 import { startRehydrate, finishRehydrate } from "./actions/rehydrate";
 
-export default (initialState) => {
+export default (ReactGA, initialState) => {
 
   const middleware = [thunk];
 
@@ -48,7 +48,7 @@ export default (initialState) => {
 
       }).catch(() => {
 
-        store.dispatch(logoutUser());
+        store.dispatch(logoutUser(ReactGA));
 
       }).then(() => {
 

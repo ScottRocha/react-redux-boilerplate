@@ -13,7 +13,7 @@ class LogoutPage extends React.Component {
 
   componentWillMount() {
 
-    this.props.dispatch(logoutUser());
+    this.props.dispatch(logoutUser(this.props.ReactGA));
     this.props.history.push("/");
 
   }

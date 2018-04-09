@@ -4,22 +4,20 @@ const webpack = require("webpack");
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = merge(common, {
 
-  "devtool": "eval-source-map",
+  "devtool": "cheap-module-source-map",
 
   "plugins": [
-    new HtmlWebpackPlugin({
-      "filename": "index.html",
-      "template": path.join(__dirname, "/template/index.html"),
-      "inject": "head",
-      "alwaysWriteToDisk": true,
+    new CircularDependencyPlugin({
+      "exclude": /a\.js|node_modules/,
+      "failOnError": true,
+      "cwd": process.cwd(),
     }),
     new HtmlWebpackHarddiskPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 
@@ -27,6 +25,7 @@ module.exports = merge(common, {
   "entry": {
     "bundle": [
       path.join(__dirname, "/client/src/app.jsx"),
+      "webpack-hot-middleware/client",
     ],
   },
 
