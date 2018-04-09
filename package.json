@@ -20,7 +20,6 @@
     "production": "cross-env NODE_ENV=production node index.js",
     "staging": "cross-env NODE_ENV=staging node index.js",
     "development": "node --max_old_space_size=4096 ./node_modules/cross-env/dist/bin/cross-env NODE_ENV=development node index.js",
-    "local": "node --max_old_space_size=4096 ./node_modules/cross-env/dist/bin/cross-env NODE_ENV=localtest node index.js",
     "lint": "eslint --ext .jsx,.js client config handlers server index.js webpack.*.js --quiet",
     "test": "yarn run lint",
     "build": "cross-env NODE_ENV=production webpack-cli --progress",
