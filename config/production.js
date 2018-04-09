@@ -11,4 +11,5 @@ module.exports = {
     "issuer": env.TOKEN_ISSUER,
     "key": env.TOKEN_KEY,
   },
+  "nonce": new Buffer(require("uuid/v4")()).toString("base64"),
 };

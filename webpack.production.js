@@ -1,60 +1,52 @@
+/* eslint-disable no-process-env */
+
 const path = require("path");
 
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const common = require("./webpack.common.js");
 
-module.exports = merge(common, {
+module.exports = merge.smart(common, {
 
   "devtool": "source-map",
 
   "plugins": [
-    new HtmlWebpackPlugin({
-      "filename": "index.html",
-      "template": path.join(__dirname, "/template/index.html"),
-      "inject": "head",
-    }),
 
-    new webpack.optimize.CommonsChunkPlugin({ "name": "vendor", "chunks": [ "material", "react", "redux", "vendor" ] }),
-    new webpack.optimize.CommonsChunkPlugin({ "name": "runtime" }),
-    new webpack.optimize.CommonsChunkPlugin({ "name": "manifest" }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
+
+    new UglifyJsPlugin({
+      "test": /\.(js|jsx)$/,
+      "cache": !process.env.CACHE_DIR || path.join(process.env.CACHE_DIR, "/webpack/"),
+      "sourceMap": true,
+      "parallel": true,
+      "extractComments": true,
+      "uglifyOptions": {
+        "compress": { "unused": false },
+        "ie8": true,
+      },
+    }),
+
     new CompressionPlugin({
       "test": /\.(js|jsx|css|html)$/,
     }),
   ],
 
+  "optimization": {
+    "splitChunks": {
+      "chunks": "all",
+      "name": true,
+    },
+    "runtimeChunk": true,
+  },
+
   // the entry file for the bundle
   "entry": {
     "bundle": path.join(__dirname, "/client/src/app.jsx"),
-    "material": [
-      "material-ui",
-      "material-ui-icons",
-    ],
-    "react": [
-      "react",
-      "react-document-title",
-      "react-dom",
-      "react-router-dom",
-    ],
-    "redux": [
-      "react-redux",
-      "react-router-redux",
-      "redux",
-      "redux-persist",
-      "redux-thunk",
-    ],
-    "vendor": [
-      "axios",
-      "localforage",
-      "lodash",
-      "prop-types",
-    ],
   },
 
 });

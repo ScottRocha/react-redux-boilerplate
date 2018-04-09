@@ -296,11 +296,14 @@ const receiveLogout = () => {
 };
 
 // Logs the user out
-export const logoutUser = () => {
+export const logoutUser = (ReactGA) => {
 
   return (dispatch) => {
 
     delete Axios.defaults.headers.common.Authorization;
+
+    // eslint-disable-next-line no-undefined
+    ReactGA.set({ "user": undefined });
 
     dispatch(receiveLogout());
 

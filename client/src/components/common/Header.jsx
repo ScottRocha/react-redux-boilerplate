@@ -17,7 +17,7 @@ const Header = ({ isAuthenticated, isDrawerOpen, onToggleDrawer, onCloseDrawer, 
     <Paper style={{ "position": "fixed", "left": 0, "top": 0, "right": 0, "zIndex": 9000 }}>
       <AppBar>
         <Toolbar>
-          <IconButton color="contrast" onClick={onToggleDrawer}>
+          <IconButton color="secondary" onClick={onToggleDrawer}>
             <MenuIcon />
           </IconButton>
           <Typography type="title" color="inherit" style={{ "cursor": "pointer" }} onClick={() => history.push("/")}>

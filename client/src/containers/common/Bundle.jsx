@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Bundle extends React.Component {
 
@@ -40,6 +41,10 @@ class Bundle extends React.Component {
 
       self.setState({
         "component": component.default ? component.default : component,
+      }, () => {
+
+        self.props.ReactGA.pageview(window.location.pathname + window.location.search + window.location.hash);
+
       });
 
     });
@@ -53,5 +58,10 @@ class Bundle extends React.Component {
   }
 
 }
+
+Bundle.propTypes = {
+  "load": PropTypes.func.isRequired,
+  "ReactGA": PropTypes.object.isRequired,
+};
 
 export default Bundle;

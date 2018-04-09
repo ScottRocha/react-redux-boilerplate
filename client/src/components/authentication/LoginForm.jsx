@@ -13,43 +13,45 @@ const LoginForm = ({ onSubmit, onInputChange, username, password, submitted, err
   <DocumentTitle title={"Login - React + Redux Boilerplate"}>
     <Grid container spacing={8} justify="center">
       <Grid item md={6} className={"centered"}>
-        <Card className="centered-card">
-          <CardHeader
-            title="Login Page"
-            subtitle="Please enter your information to login to our service"
-          />
-          <CardContent>
-            <div style={{ "color": "red", "fontWeight": "bold" }}>
-              {!error || error.message}
-            </div>
-            <div>
-              <TextField
-                name="username"
-                label="Username"
-                value={username}
-                onChange={onInputChange}
-                error={!username && submitted}
-                helperText={!username && submitted && "This field is required"}
-              />
-            </div>
-            <div>
-              <TextField
-                name="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={onInputChange}
-                error={!password && submitted}
-                helperText={!password && submitted && "This field is required"}
-              />
-            </div>
-          </CardContent>
-          <CardActions>
-            <Button raised color="accent" onClick={onSubmit}>
+        <form onSubmit={onSubmit}>
+          <Card className="centered-card">
+            <CardHeader
+              title="Login Page"
+              subtitle="Please enter your information to login to our service"
+            />
+            <CardContent>
+              <div style={{ "color": "red", "fontWeight": "bold" }}>
+                {!error || error.message}
+              </div>
+              <div>
+                <TextField
+                  name="username"
+                  label="Username"
+                  value={username}
+                  onChange={onInputChange}
+                  error={!username && submitted}
+                  helperText={!username && submitted && "This field is required"}
+                />
+              </div>
+              <div>
+                <TextField
+                  name="password"
+                  label="Password"
+                  type="password"
+                  value={password}
+                  onChange={onInputChange}
+                  error={!password && submitted}
+                  helperText={!password && submitted && "This field is required"}
+                />
+              </div>
+            </CardContent>
+            <CardActions>
+              <Button type="submit" variant="raised" color="secondary">
               Submit
-            </Button>
-          </CardActions>
-        </Card>
+              </Button>
+            </CardActions>
+          </Card>
+        </form>
       </Grid>
     </Grid>
   </DocumentTitle>

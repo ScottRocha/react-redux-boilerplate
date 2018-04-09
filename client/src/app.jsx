@@ -3,8 +3,7 @@ import "babel-polyfill";
 import React from "react";
 import { render } from "react-dom";
 
-import { MuiThemeProvider } from "material-ui";
-import { createMuiTheme } from "material-ui/styles";
+import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -22,7 +21,12 @@ import NotFound from "bundle-loader?lazy&name=notfound!./components/common/NotFo
 
 import createStore from "./datastore/createStore";
 
-const { store, persistor } = createStore();
+import config from "./config";
+
+import ReactGA from "react-ga";
+ReactGA.initialize(config.tracking.host[window.location.host]);
+
+const { store, persistor } = createStore(ReactGA);
 
 render(
   <MuiThemeProvider theme={createMuiTheme()}>
@@ -31,6 +35,8 @@ render(
         <BrowserRouter>
           <Route
             render={(props) => {
+
+              props.ReactGA = ReactGA;
 
               return (
                 <BasePage {...props}>

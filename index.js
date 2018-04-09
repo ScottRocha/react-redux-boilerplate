@@ -1,12 +1,12 @@
-/* eslint-disable no-process-env */
-
-const express = require("express");
+const config = require("config");
 const path = require("path");
 
+const express = require("express");
 const app = express();
+app.env = config.util.getEnv("NODE_ENV");
 
-// const favicon = require("serve-favicon");
-// app.use(favicon(path.join(__dirname, "/server/static/favicon/favicon.ico")));
+const favicon = require("serve-favicon");
+app.use(favicon(path.join(__dirname, "/server/static/favicon/favicon.ico")));
 
 const logger = require("./handlers/logger");
 logger.debug("Overriding \"Express\" logger");
@@ -19,29 +19,6 @@ app.use(methodOverride());
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ "extended": true }));
-
-const xFrameOptions = require("x-frame-options");
-app.use(xFrameOptions());
-
-const xXssProtection = require("x-xss-protection");
-app.use(xXssProtection());
-
-const xContentTypeOptions = require("dont-sniff-mimetype");
-app.use(xContentTypeOptions());
-
-const contentSecurityPolicy = require("helmet-csp");
-app.use(contentSecurityPolicy({
-  "directives": {
-    "baseUri": ["'none'"],
-    "defaultSrc": ["'self'"],
-    "scriptSrc": [ "'self'", "'unsafe-inline'", "'unsafe-eval'" ],
-    "styleSrc": [ "'self'", "'unsafe-inline'", "fonts.googleapis.com" ],
-    "fontSrc": [ "'self'", "fonts.gstatic.com" ],
-    "imgSrc": [ "'self'", "data:" ],
-    "sandbox": [ "allow-forms", "allow-same-origin", "allow-scripts" ],
-    "objectSrc": ["'none'"],
-  },
-}));
 
 // tell the app to look for static files in these directories
 app.use("/", express.static(path.join(__dirname, "/server/static/")));
@@ -57,10 +34,15 @@ app.use("/api", upload.fields([]), apiRoutes);
 const tokenRoutes = require("./server/routes/token");
 app.use("/token", tokenRoutes);
 
-if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging") {
+if (app.env === "production" || app.env === "staging") {
 
-  const compression = require("compression");
-  app.use(compression());
+  app.get("*.js", (req, res, next) => {
+
+    req.url = req.url + ".gz";
+    res.set("Content-Encoding", "gzip");
+    next();
+
+  });
 
   app.get("*", (req, res) => {
 
@@ -72,7 +54,6 @@ if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging")
 
   const webpack = require("webpack");
 
-  // const WebpackDevServer = require("webpack-dev-server");
   const webpackConfig = require("./webpack.config");
   const compiler = webpack(webpackConfig);
 
@@ -87,32 +68,56 @@ if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging")
   });
 
   app.use(require("webpack-dev-middleware")(compiler, {
-
-    //  noInfo: true,
     "publicPath": webpackConfig.output.publicPath,
     "hot": true,
-
-    //   historyApiFallback: true
+    "stats": {
+      "colors": true,
+    },
+    "watchOptions": {
+      "aggregateTimeout": 300,
+      "poll": 1000,
+    },
   }));
 
   app.use(require("webpack-hot-middleware")(compiler));
 
 }
 
-const cors = require("cors");
-app.use(cors());
+const xFrameOptions = require("x-frame-options");
+app.use(xFrameOptions());
 
-app.get("*", (req, res) => {
+const xXssProtection = require("x-xss-protection");
+app.use(xXssProtection());
 
-  res.sendFile(path.join(__dirname, "/client/dist/", "index.html"));
+const xContentTypeOptions = require("dont-sniff-mimetype");
+app.use(xContentTypeOptions());
+
+const fs = require("fs");
+fs.readFile(path.join(__dirname, "/server/dist/nonce.key"), (err, nonce) => {
+
+  const contentSecurityPolicy = require("helmet-csp");
+  app.use(contentSecurityPolicy({
+    "directives": {
+      "baseUri": ["'none'"],
+      "defaultSrc": ["'self'"],
+      "fontSrc": [ "'self'", "fonts.gstatic.com" ],
+      "imgSrc": [ "'self'", "data:" ],
+      "objectSrc": ["'none'"],
+      "sandbox": [ "allow-forms", "allow-same-origin", "allow-scripts" ],
+      "scriptSrc": [ "'self'", "www.google-analytics.com" ],
+      "styleSrc": [ "'self'", "'nonce-" + (!err ? nonce : config.nonce) + "'", "fonts.googleapis.com" ],
+    },
+    "setAllHeaders": true,
+    "browserSniff": false,
+  }));
 
 });
 
-const config = require("config");
+const cors = require("cors");
+app.use(cors());
 
 app.listen(config.port, () => {
 
-  const nodeEnv = process.env.NODE_ENV;
-  logger.info((nodeEnv ? nodeEnv.charAt(0).toUpperCase() + nodeEnv.slice(1) : "Local Test") + " Express server running on port " + config.port);
+  logger.info((app.env ? app.env.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ") : "Unknown") + " Express server running on port " + config.port);
 
 });

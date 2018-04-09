@@ -76,7 +76,7 @@ const RegisterForm = ({ onSubmit, onInputChange, username, password, passwordCon
             </div>
           </CardContent>
           <CardActions>
-            <Button raised color="accent" onClick={onSubmit}>
+            <Button variant="raised" color="secondary" onClick={onSubmit}>
               Submit
             </Button>
           </CardActions>
