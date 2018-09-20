@@ -7095,9 +7095,9 @@ webpack-dev-middleware@3.1.2:
     url-join "^4.0.0"
     webpack-log "^1.0.1"
 
-webpack-hot-middleware@2.22.0:
-  version "2.22.0"
-  resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.22.0.tgz#db58c9dd2bd78e7f3868cccb42a20d24b00a7ade"
+webpack-hot-middleware@2.24.1:
+  version "2.24.1"
+  resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.24.1.tgz#52fcc54fd4e5f962af2440ce8ed37717f1a5e81c"
   dependencies:
     ansi-html "0.0.7"
     html-entities "^1.2.0"
