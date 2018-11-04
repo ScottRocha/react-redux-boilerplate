@@ -43,7 +43,7 @@
     "clean-webpack-plugin": "0.1.19",
     "compression-webpack-plugin": "1.1.11",
     "config": "1.30.0",
-    "cors": "2.8.4",
+    "cors": "2.8.5",
     "cross-env": "5.1.4",
     "css-loader": "0.28.11",
     "dont-sniff-mimetype": "1.0.0",
