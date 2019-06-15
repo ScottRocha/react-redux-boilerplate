@@ -7242,9 +7242,10 @@ x-frame-options@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/x-frame-options/-/x-frame-options-1.0.0.tgz#ff9c1ca944b916a9bc27d6672a8b39b5b08b427f"
 
-x-xss-protection@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/x-xss-protection/-/x-xss-protection-1.1.0.tgz#4f1898c332deb1e7f2be1280efb3e2c53d69c1a7"
+x-xss-protection@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/x-xss-protection/-/x-xss-protection-1.2.0.tgz#3170498ff8e7e8159f4896b27fa4d4810c2ff486"
+  integrity sha512-xN0kV+8XfOQM2OPPBdEbGtbvJNNP1pvZR7sE6d44cjJFQG4OiGDdienPg5iOUGswBTiGbBvtYDURd30BMJwwqg==
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"
