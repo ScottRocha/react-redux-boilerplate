@@ -9,12 +9,11 @@
   },
   "plugins": ["react"],
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,
-      "impliedStrict": true,
-      "experimentalObjectRestSpread": true
+      "impliedStrict": true
     }
   },
   "rules": {
@@ -283,7 +282,7 @@
     "quote-props": "error",
     "quotes": [
       "error",
-      "double",
+      "single",
       "avoid-escape"
     ],
     "semi": [
@@ -333,5 +332,8 @@
       "never",
       {}
     ]
-  }
+  },
+   "extends": [
+    "react-app"
+  ]
 }

@@ -1,12 +1,15 @@
+require('newrelic');
+
+require('dotenv').config();
+
 const config = require('config');
 const path = require('path');
 
 const express = require('express');
 const app = express();
-app.env = config.util.getEnv('NODE_ENV');
 
-const favicon = require('serve-favicon');
-app.use(favicon(path.join(__dirname, '/server/static/favicon/favicon.ico')));
+app.env = config.env;
+app.heroku = config.heroku;
 
 const logger = require('./handlers/logger');
 logger.debug('Overriding "Express" logger');
@@ -20,81 +23,19 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': true }));
 
-if (app.env === 'production') {
-
-  app.all('*.js', (req, res, next) => {
-
-    req.url += '.gz';
-
-    res.set('Content-Encoding', 'gzip');
-    res.set('Content-Type', 'text/javascript');
-
-    next();
-
-  });
-
-  app.use(require('compression')());
-
-}
-
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-
-// API routes
-const apiRoutes = require('./server/routes/api');
-app.use('/api', upload.fields([]), apiRoutes);
-const tokenRoutes = require('./server/routes/token');
-app.use('/token', tokenRoutes);
-
-app.use('/', express.static(path.join(__dirname, '/server/static/'), { 'maxAge': '1y' }));
-app.use('/dist', express.static(path.join(__dirname, '/client/dist/'), { 'maxAge': '1w' }));
-
-if (app.env === 'production') {
+if (app.heroku) {
 
   app.use(require('express-sslify').HTTPS({ 'trustProtoHeader': true }));
 
 }
 
-if (app.env && app.env.startsWith('development') && !app.heroku) {
+app.use(express.static(path.join(__dirname, 'build'), { 'maxAge': '1y' }));
 
-  const webpack = require('webpack');
+app.get('/*', (req, res) => {
 
-  const webpackConfig = require('./webpack.config');
-  const compiler = webpack(webpackConfig);
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 
-  compiler.hooks.done.tap('SwishHQ', () => {
-
-    app.get('*', (req, res) => {
-
-      res.sendFile(path.join(__dirname, '/client/dist/', 'index.html'));
-
-    });
-
-  });
-  app.use(require('webpack-dev-middleware')(compiler, {
-    'publicPath': '/dist/',
-    'hot': true,
-    'stats': {
-      'colors': true,
-    },
-    'watchOptions': {
-      'aggregateTimeout': 300,
-      'poll': 1000,
-    },
-  }));
-
-  app.use(require('webpack-hot-middleware')(compiler));
-
-} else {
-
-  app.get('*', (req, res) => {
-
-    res.sendFile(path.join(__dirname, '/client/dist/', 'index.html'));
-
-  });
-
-}
+});
 
 const xFrameOptions = require('x-frame-options');
 app.use(xFrameOptions());
