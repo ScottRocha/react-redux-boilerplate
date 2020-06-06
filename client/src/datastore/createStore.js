@@ -1,22 +1,22 @@
-import { compose, createStore, applyMiddleware } from "redux";
-import { persistStore } from "redux-persist";
+import { compose, createStore, applyMiddleware } from 'redux';
+import { persistStore } from 'redux-persist';
 
-import thunk from "redux-thunk";
-import { createLogger } from "redux-logger";
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
-import Axios from "axios";
+import Axios from 'axios';
 
-import reducers from "./reducers";
+import reducers from './reducers';
 
-import { logoutUser, refreshToken } from "./actions/authentication";
-import { startRehydrate, finishRehydrate } from "./actions/rehydrate";
+import { logoutUser, refreshToken } from './actions/authentication';
+import { startRehydrate, finishRehydrate } from './actions/rehydrate';
 
 export default (ReactGA, initialState) => {
 
   const middleware = [thunk];
 
   // eslint-disable-next-line no-process-env
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
 
     middleware.push(createLogger());
 
@@ -25,7 +25,7 @@ export default (ReactGA, initialState) => {
   const store = createStore(
     reducers,
     initialState,
-    compose(applyMiddleware(...middleware))
+    compose(applyMiddleware(...middleware)),
   );
 
   store.dispatch(startRehydrate());
@@ -36,8 +36,8 @@ export default (ReactGA, initialState) => {
 
     if (store.getState().authentication.token) {
 
-      Axios("/token/verify", {
-        "method": "get",
+      Axios('/token/verify', {
+        'method': 'get',
       }).then(() => {
 
         if (new Date().getTime() <= store.getState().authentication.expiry + 1000 * 60 * 60 * 12) {

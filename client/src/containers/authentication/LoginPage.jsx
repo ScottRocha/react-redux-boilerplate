@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { loginUser } from "../../datastore/actions/authentication";
-import { checkUnAuth } from "../../helpers/auth";
+import { loginUser } from '../../datastore/actions/authentication';
+import { checkUnAuth } from '../../helpers/auth';
 
-import LoginForm from "../../components/authentication/LoginForm";
+import LoginForm from '../../components/authentication/LoginForm';
 
 
 export default class LoginPage extends React.Component {
@@ -15,9 +15,9 @@ export default class LoginPage extends React.Component {
     this.processForm = this.processForm.bind(this);
 
     this.state = {
-      "username": "",
-      "password": "",
-      "submitted": false,
+      'username': '',
+      'password': '',
+      'submitted': false,
     };
 
   }
@@ -32,11 +32,11 @@ export default class LoginPage extends React.Component {
 
     if (nextProps.user && nextProps.user.accountId) {
 
-      this.props.history.push("/");
+      this.props.history.push('/');
 
     } else {
 
-      this.setState({ "error": nextProps.error });
+      this.setState({ 'error': nextProps.error });
 
     }
 
@@ -47,7 +47,7 @@ export default class LoginPage extends React.Component {
     event.preventDefault();
 
     this.setState({
-      "submitted": true,
+      'submitted': true,
     });
 
     if (this.state.username && this.state.password) {
@@ -61,7 +61,7 @@ export default class LoginPage extends React.Component {
   handleInputChange(event) {
 
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({

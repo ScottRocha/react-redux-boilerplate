@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import DocumentTitle from "react-document-title";
+import DocumentTitle from 'react-document-title';
 
-import Grid from "material-ui/Grid";
+import Grid from '@material-ui/core/Grid';
 
 
 const Home = () => (
-  <DocumentTitle title={"Home - React + Redux Boilerplate"}>
+  <DocumentTitle title={'Home - React + Redux Boilerplate'}>
     <div>
       <Grid container spacing={8} justify="center">
-        <Grid item sm={6} className={"centered"}>
+        <Grid item sm={6} className={'centered'}>
           Welcome to my rendition of a React + Redux Boilerplate Template.
         </Grid>
       </Grid>

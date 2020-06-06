@@ -1,16 +1,16 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 // Register Section
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "REGISTER_FAILURE";
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 const requestRegister = (username, password) => {
 
   return {
-    "type": REGISTER_REQUEST,
-    "isFetching": true,
-    "isAuthenticated": false,
+    'type': REGISTER_REQUEST,
+    'isFetching': true,
+    'isAuthenticated': false,
     username,
     password,
   };
@@ -20,9 +20,9 @@ const requestRegister = (username, password) => {
 const receiveRegister = (user, token, expiry, message) => {
 
   return {
-    "type": REGISTER_SUCCESS,
-    "isFetching": false,
-    "isAuthenticated": true,
+    'type': REGISTER_SUCCESS,
+    'isFetching': false,
+    'isAuthenticated': true,
     user,
     token,
     expiry,
@@ -34,9 +34,9 @@ const receiveRegister = (user, token, expiry, message) => {
 const registerError = (error) => {
 
   return {
-    "type": REGISTER_FAILURE,
-    "isFetching": false,
-    "isAuthenticated": false,
+    'type': REGISTER_FAILURE,
+    'isFetching': false,
+    'isAuthenticated': false,
     error,
   };
 
@@ -61,8 +61,8 @@ export const registerUser = (userName, password, firstName, lastName) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/api/register", {
-          "method": "post",
+        Axios('/api/register', {
+          'method': 'post',
           data,
         }).then((token) => {
 
@@ -86,8 +86,8 @@ export const registerUser = (userName, password, firstName, lastName) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/api/user", {
-          "method": "get",
+        Axios('/api/user', {
+          'method': 'get',
         }).then((response) => {
 
           return resolve([ token, response.data.result ]);
@@ -106,8 +106,8 @@ export const registerUser = (userName, password, firstName, lastName) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/token/verify", {
-          "method": "get",
+        Axios('/token/verify', {
+          'method': 'get',
         }).then((decoded) => {
 
           return resolve([ token, user, decoded.data.exp ]);
@@ -127,7 +127,7 @@ export const registerUser = (userName, password, firstName, lastName) => {
       .then(getTokenVerification)
       .then(([ token, user, expiry ]) => {
 
-        return dispatch(receiveRegister(user, token, expiry, "Successful Registration!"));
+        return dispatch(receiveRegister(user, token, expiry, 'Successful Registration!'));
 
       }).catch((err) => {
 
@@ -143,16 +143,16 @@ export const registerUser = (userName, password, firstName, lastName) => {
 };
 
 // Login Section
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 const requestLogin = (userName, password) => {
 
   return {
-    "type": LOGIN_REQUEST,
-    "isFetching": true,
-    "isAuthenticated": false,
+    'type': LOGIN_REQUEST,
+    'isFetching': true,
+    'isAuthenticated': false,
     userName,
     password,
   };
@@ -162,9 +162,9 @@ const requestLogin = (userName, password) => {
 const receiveLogin = (user, token, expiry, message) => {
 
   return {
-    "type": LOGIN_SUCCESS,
-    "isFetching": false,
-    "isAuthenticated": true,
+    'type': LOGIN_SUCCESS,
+    'isFetching': false,
+    'isAuthenticated': true,
     user,
     token,
     expiry,
@@ -176,9 +176,9 @@ const receiveLogin = (user, token, expiry, message) => {
 const loginError = (error) => {
 
   return {
-    "type": LOGIN_FAILURE,
-    "isFetching": false,
-    "isAuthenticated": false,
+    'type': LOGIN_FAILURE,
+    'isFetching': false,
+    'isAuthenticated': false,
     error,
   };
 
@@ -201,8 +201,8 @@ export const loginUser = (userName, password) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/api/login", {
-          "method": "post",
+        Axios('/api/login', {
+          'method': 'post',
           data,
         }).then((token) => {
 
@@ -226,8 +226,8 @@ export const loginUser = (userName, password) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/api/user", {
-          "method": "get",
+        Axios('/api/user', {
+          'method': 'get',
         }).then((response) => {
 
           return resolve([ token, response.data.result ]);
@@ -246,8 +246,8 @@ export const loginUser = (userName, password) => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/token/verify", {
-          "method": "get",
+        Axios('/token/verify', {
+          'method': 'get',
         }).then((decoded) => {
 
           return resolve([ token, user, decoded.data.exp ]);
@@ -267,7 +267,7 @@ export const loginUser = (userName, password) => {
       .then(getTokenVerification)
       .then(([ token, user, expiry ]) => {
 
-        return dispatch(receiveLogin(user, token, expiry, "Successful Login!"));
+        return dispatch(receiveLogin(user, token, expiry, 'Successful Login!'));
 
       }).catch((err) => {
 
@@ -283,14 +283,14 @@ export const loginUser = (userName, password) => {
 };
 
 // Logout Section
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 const receiveLogout = () => {
 
   return {
-    "type": LOGOUT_SUCCESS,
-    "isFetching": false,
-    "isAuthenticated": false,
+    'type': LOGOUT_SUCCESS,
+    'isFetching': false,
+    'isAuthenticated': false,
   };
 
 };
@@ -303,7 +303,7 @@ export const logoutUser = (ReactGA) => {
     delete Axios.defaults.headers.common.Authorization;
 
     // eslint-disable-next-line no-undefined
-    ReactGA.set({ "user": undefined });
+    ReactGA.set({ 'user': undefined });
 
     dispatch(receiveLogout());
 
@@ -312,15 +312,15 @@ export const logoutUser = (ReactGA) => {
 };
 
 // Token Refresh Section
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
-export const REFRESH_TOKEN_FAILURE = "REFRESH_TOKEN_FAILURE";
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILURE = 'REFRESH_TOKEN_FAILURE';
 
 const requestRefreshToken = () => {
 
   return {
-    "type": REFRESH_TOKEN_REQUEST,
-    "isFetching": true,
+    'type': REFRESH_TOKEN_REQUEST,
+    'isFetching': true,
   };
 
 };
@@ -328,9 +328,9 @@ const requestRefreshToken = () => {
 const receiveRefreshToken = (token, expiry) => {
 
   return {
-    "type": REFRESH_TOKEN_SUCCESS,
-    "isFetching": false,
-    "isAuthenticated": true,
+    'type': REFRESH_TOKEN_SUCCESS,
+    'isFetching': false,
+    'isAuthenticated': true,
     token,
     expiry,
   };
@@ -340,9 +340,9 @@ const receiveRefreshToken = (token, expiry) => {
 const tokenRefreshError = (error) => {
 
   return {
-    "type": REFRESH_TOKEN_FAILURE,
-    "isFetching": false,
-    "isAuthenticated": false,
+    'type': REFRESH_TOKEN_FAILURE,
+    'isFetching': false,
+    'isAuthenticated': false,
     error,
   };
 
@@ -360,8 +360,8 @@ export const refreshToken = () => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/api/token/refresh", {
-          "method": "get",
+        Axios('/api/token/refresh', {
+          'method': 'get',
         }).then((token) => {
 
           token = token.data.result;
@@ -384,8 +384,8 @@ export const refreshToken = () => {
 
       return new Promise((resolve, reject) => {
 
-        Axios("/token/verify", {
-          "method": "get",
+        Axios('/token/verify', {
+          'method': 'get',
         }).then((decoded) => {
 
           return resolve([ token, decoded.data.exp ]);

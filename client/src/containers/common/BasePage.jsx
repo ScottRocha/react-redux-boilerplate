@@ -1,10 +1,10 @@
-import React from "react";
-import { matchPath } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { matchPath } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import Bundle from "../../containers/common/Bundle";
-import Base from "../../components/common/Base";
-import Loading from "../../components/common/Loading";
+import Bundle from '../../containers/common/Bundle';
+import Base from '../../components/common/Base';
+import Loading from '../../components/common/Loading';
 
 
 class BasePage extends React.Component {
@@ -14,7 +14,7 @@ class BasePage extends React.Component {
     super(props);
 
     this.state = {
-      "path": this.props.location.pathname,
+      'path': this.props.location.pathname,
     };
 
   }
@@ -27,7 +27,7 @@ class BasePage extends React.Component {
 
       // Global props
       let globalProps = {
-        "history": this.props.history,
+        'history': this.props.history,
         dispatch,
         isAuthenticated,
         user,
@@ -35,19 +35,19 @@ class BasePage extends React.Component {
         message,
         token,
         error,
-        "ReactGA": this.props.ReactGA,
+        'ReactGA': this.props.ReactGA,
       };
 
       const childrenWithProps = React.Children.map(this.props.children, (child) => {
 
         return React.cloneElement(child, {
-          "render": () =>
+          'render': () =>
             <Bundle ReactGA={this.props.ReactGA} load={child.props.bundle}>{(Component) => <Component {...{
-              "path": child.props.path,
-              "match": matchPath(this.props.history.location.pathname, {
-                "path": child.props.path,
-                "exact": true,
-                "strict": false,
+              'path': child.props.path,
+              'match': matchPath(this.props.history.location.pathname, {
+                'path': child.props.path,
+                'exact': true,
+                'strict': false,
               }),
               ...globalProps,
             }} />}</Bundle>,

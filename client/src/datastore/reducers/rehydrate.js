@@ -1,7 +1,7 @@
-import { START_REHYDRATE, FINISH_REHYDRATE } from "../actions/rehydrate";
+import { START_REHYDRATE, FINISH_REHYDRATE } from '../actions/rehydrate';
 
 const initialState = {
-  "isRehydrated": false,
+  'isRehydrated': false,
 };
 
 export default function rehyrdate(state = initialState, action) {
@@ -10,11 +10,11 @@ export default function rehyrdate(state = initialState, action) {
 
     case START_REHYDRATE:
       return Object.assign({}, state, {
-        "isRehydrated": action.isRehydrated,
+        'isRehydrated': action.isRehydrated,
       });
     case FINISH_REHYDRATE:
       return Object.assign({}, state, {
-        "isRehydrated": action.isRehydrated,
+        'isRehydrated': action.isRehydrated,
       });
     default:
       return state;

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { logoutUser } from "../../datastore/actions/authentication";
+import { logoutUser } from '../../datastore/actions/authentication';
 
 
 class LogoutPage extends React.Component {
@@ -14,7 +14,7 @@ class LogoutPage extends React.Component {
   componentWillMount() {
 
     this.props.dispatch(logoutUser(this.props.ReactGA));
-    this.props.history.push("/");
+    this.props.history.push('/');
 
   }
 

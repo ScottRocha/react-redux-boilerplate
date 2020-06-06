@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Header from "../../components/common/Header";
+import Header from '../../components/common/Header';
 
 class HeaderPage extends React.Component {
 
@@ -10,7 +10,7 @@ class HeaderPage extends React.Component {
     super(props);
 
     this.state = {
-      "isDrawerOpen": false,
+      'isDrawerOpen': false,
     };
 
   }
@@ -18,7 +18,7 @@ class HeaderPage extends React.Component {
   onToggleDrawer() {
 
     this.setState({
-      "isDrawerOpen": !this.state.isDrawerOpen,
+      'isDrawerOpen': !this.state.isDrawerOpen,
     });
 
   }
@@ -26,7 +26,7 @@ class HeaderPage extends React.Component {
   onCloseDrawer() {
 
     this.setState({
-      "isDrawerOpen": false,
+      'isDrawerOpen': false,
     });
 
   }
@@ -34,7 +34,7 @@ class HeaderPage extends React.Component {
   onSetDrawerState(state) {
 
     this.setState({
-      "isDrawerOpen": state,
+      'isDrawerOpen': state,
     });
 
   }
@@ -57,8 +57,8 @@ class HeaderPage extends React.Component {
 }
 
 HeaderPage.propTypes = {
-  "isAuthenticated": PropTypes.bool.isRequired,
-  "history": PropTypes.object.isRequired,
+  'isAuthenticated': PropTypes.bool.isRequired,
+  'history': PropTypes.object.isRequired,
 };
 
 export default HeaderPage;

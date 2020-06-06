@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { registerUser } from "../../datastore/actions/authentication";
-import { checkUnAuth } from "../../helpers/auth";
+import { registerUser } from '../../datastore/actions/authentication';
+import { checkUnAuth } from '../../helpers/auth';
 
-import RegisterForm from "../../components/authentication/RegisterForm";
+import RegisterForm from '../../components/authentication/RegisterForm';
 
 
 class RegisterPage extends React.Component {
@@ -14,19 +14,19 @@ class RegisterPage extends React.Component {
 
     if (props.user && props.user.userid) {
 
-      this.props.history.push("/");
+      this.props.history.push('/');
 
     }
 
     this.processForm = this.processForm.bind(this);
 
     this.state = {
-      "username": "",
-      "password": "",
-      "passwordConf": "",
-      "firstName": "",
-      "lastName": "",
-      "submitted": false,
+      'username': '',
+      'password': '',
+      'passwordConf': '',
+      'firstName': '',
+      'lastName': '',
+      'submitted': false,
     };
 
   }
@@ -41,11 +41,11 @@ class RegisterPage extends React.Component {
 
     if (nextProps.user && nextProps.user.accountId) {
 
-      this.props.history.push("/");
+      this.props.history.push('/');
 
     } else {
 
-      this.setState({ "error": nextProps.error });
+      this.setState({ 'error': nextProps.error });
 
     }
 
@@ -56,7 +56,7 @@ class RegisterPage extends React.Component {
     event.preventDefault();
 
     this.setState({
-      "submitted": true,
+      'submitted': true,
     });
 
     if (this.state.username && this.state.password) {
@@ -70,7 +70,7 @@ class RegisterPage extends React.Component {
   handleInputChange(event) {
 
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
     this.setState({

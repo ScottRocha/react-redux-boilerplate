@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Switch } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Switch } from 'react-router-dom';
 
-import HeaderPage from "../../containers/common/HeaderPage";
-import Footer from "./Footer";
+import HeaderPage from '../../containers/common/HeaderPage';
+import Footer from './Footer';
 
 
 const Base = ({ childrenWithProps, history, isAuthenticated, user }) => (
@@ -21,10 +21,10 @@ const Base = ({ childrenWithProps, history, isAuthenticated, user }) => (
 );
 
 Base.propTypes = {
-  "childrenWithProps": PropTypes.array.isRequired,
-  "history": PropTypes.object.isRequired,
-  "isAuthenticated": PropTypes.bool.isRequired,
-  "user": PropTypes.object.isRequired,
+  'childrenWithProps': PropTypes.array.isRequired,
+  'history': PropTypes.object.isRequired,
+  'isAuthenticated': PropTypes.bool.isRequired,
+  'user': PropTypes.object.isRequired,
 };
 
 export default Base;

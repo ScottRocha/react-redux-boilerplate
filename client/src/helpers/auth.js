@@ -1,10 +1,10 @@
-import { refreshToken } from "../datastore/actions/authentication";
+import { refreshToken } from '../datastore/actions/authentication';
 
 export const checkAuth = (props) => {
 
   if (!props.isAuthenticated) {
 
-    props.history.push("/login");
+    props.history.push('/login');
 
   }
 
@@ -22,7 +22,7 @@ export const checkRefresh = (props) => {
 
 export const isUserValid = (userType, validTypes = []) => {
 
-  return !(userType !== "admin" && !validTypes.find((type) => userType === type));
+  return !(userType !== 'admin' && !validTypes.find((type) => userType === type));
 
 
 };
@@ -31,7 +31,7 @@ export const checkUnAuth = (props) => {
 
   if (props.isAuthenticated) {
 
-    props.history.push("/");
+    props.history.push('/');
 
   }
 

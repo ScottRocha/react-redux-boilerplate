@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import DocumentTitle from "react-document-title";
+import DocumentTitle from 'react-document-title';
 
 
-import HeaderPage from "../../containers/common/HeaderPage";
-import Footer from "./Footer";
+import HeaderPage from '../../containers/common/HeaderPage';
+import Footer from './Footer';
 
 
 const Loading = ({ history }) => (
-  <DocumentTitle title={"Loading - React + Redux Boilerplate"}>
+  <DocumentTitle title={'Loading - React + Redux Boilerplate'}>
     <div>
       <HeaderPage isAuthenticated={false} history={history} />
 
@@ -23,7 +23,7 @@ const Loading = ({ history }) => (
 );
 
 Loading.propTypes = {
-  "history": PropTypes.object.isRequired,
+  'history': PropTypes.object.isRequired,
 };
 
 export default Loading;

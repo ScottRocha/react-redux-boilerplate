@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = new express.Router();
 
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-router.get("/verify", (req, res) => {
+router.get('/verify', (req, res) => {
 
-  jwt.verify(req.get("authorization"), require("config").token.key, (err, decoded) => {
+  jwt.verify(req.get('authorization'), require('config').token.key, (err, decoded) => {
 
     if (!err && decoded.exp >= Math.floor(Date.now() / 1000)) {
 
@@ -14,8 +14,8 @@ router.get("/verify", (req, res) => {
     } else {
 
       res.status(400).json({
-        "message": err.message,
-        "result": err.error,
+        'message': err.message,
+        'result': err.error,
       });
 
     }

@@ -1,24 +1,24 @@
-import localForage from "localforage";
+import localForage from 'localforage';
 
-import { persistCombineReducers } from "redux-persist";
-import { routerReducer } from "react-router-redux";
+import { persistCombineReducers } from 'redux-persist';
+import { routerReducer } from 'react-router-redux';
 
-import authentication from "./authentication";
-import rehydrate from "./rehydrate";
+import authentication from './authentication';
+import rehydrate from './rehydrate';
 
 const rootReducer = persistCombineReducers({
-  "transforms": [
+  'transforms': [
 
     // createExpirationTransform({
     //   expireKey: "expiry"
     // })
   ],
-  "key": "react-redux-boilerplate",
-  "storage": localForage,
+  'key': 'react-redux-boilerplate',
+  'storage': localForage,
 }, {
   authentication,
   rehydrate,
-  "routing": routerReducer,
+  'routing': routerReducer,
 });
 
 export default rootReducer;

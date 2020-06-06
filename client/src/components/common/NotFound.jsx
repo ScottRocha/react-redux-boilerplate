@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import DocumentTitle from "react-document-title";
+import DocumentTitle from 'react-document-title';
 
 
 const NotFound = () => (
-  <DocumentTitle title={"Not Found - React + Redux Boilerplate"}>
+  <DocumentTitle title={'Not Found - React + Redux Boilerplate'}>
     <h1>
       Page Does Not Exist
     </h1>
