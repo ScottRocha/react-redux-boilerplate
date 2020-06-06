@@ -10,10 +10,13 @@
       "email": "johnathan.martell22@gmail.com"
     }
   ],
+<<<<<<< HEAD
+=======
   "repository": {
     "type": "git",
     "url": "https://github.com/ScottRocha/react-redux-boilerplate"
   },
+>>>>>>> c8053be... 2020 Refactor
   "main": "server.js",
   "scripts": {
     "start": "react-scripts start",
