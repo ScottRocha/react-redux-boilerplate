@@ -1,54 +1,63 @@
-const winston = require('winston');
-const format = winston.format;
+const path = require('path');
 
-const logger = winston.createLogger({
-  'level': 'info',
-  'format': format.json(),
-  'exitOnError': false,
+const { createLogger, format, transports } = require('winston');
+
+const errorStackTracerFormat = format((info) => {
+
+  if (info.meta && info.meta instanceof Error) {
+
+    info.message = `${info.message} ${info.meta.stack}`;
+
+  }
+
+  return info;
+
+});
+
+const logger = createLogger({
   'transports': [
-    new winston.transports.File({
+    new transports.File({
       'name': 'info',
       'level': 'info',
-      'filename': './logs/all-logs.log',
+      'filename': path.join(__dirname, '../logs/all-logs.log'),
       'humanReadableUnhandledException': true,
       'handleExceptions': true,
+      'json': true,
       'maxsize': 5242880, // 5MB
       'maxFiles': 5,
       'colorize': false,
     }),
-    new winston.transports.File({
+    new transports.File({
       'name': 'warn',
       'level': 'warn',
-      'filename': './logs/warn-logs.log',
+      'filename': path.join(__dirname, '../logs/warn-logs.log'),
       'humanReadableUnhandledException': true,
       'handleExceptions': true,
+      'json': true,
       'maxsize': 5242880, // 5MB
       'maxFiles': 5,
       'colorize': true,
     }),
-    new winston.transports.File({
+    new transports.File({
       'name': 'error',
       'level': 'error',
-      'filename': './logs/error-logs.log',
+      'filename': path.join(__dirname, '../logs/error-logs.log'),
       'humanReadableUnhandledException': true,
       'handleExceptions': true,
+      'json': true,
       'maxsize': 5242880, // 5MB
       'maxFiles': 5,
       'colorize': true,
     }),
-    new winston.transports.Console({
-      'level': 'debug',
+    new transports.Console({
       'format': format.combine(
-        format.colorize(),
-        format.timestamp(),
-        format.align(),
-        format.printf((info) => `${info.timestamp} ${info.level}: ${info.message.trim()}`),
+        format.splat(),
+        errorStackTracerFormat(),
+        format.simple(),
       ),
-      'humanReadableUnhandledException': true,
-      'handleExceptions': true,
-      'colorize': true,
     }),
   ],
+  'exitOnError': false,
 });
 
 module.exports = logger;
