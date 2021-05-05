@@ -45,7 +45,7 @@
     "config": "1.30.0",
     "cors": "2.8.4",
     "cross-env": "5.1.4",
-    "css-loader": "0.28.11",
+    "css-loader": "1.0.0",
     "dont-sniff-mimetype": "1.0.0",
     "eslint": "4.19.1",
     "eslint-plugin-react": "7.7.0",
